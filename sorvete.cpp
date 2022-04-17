@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-
+    //versão final
     int P, S, x, y;
     vector<pair<int, int>> comprimento;
     int i = 0, f = 0;
