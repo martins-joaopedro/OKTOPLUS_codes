@@ -3,7 +3,7 @@ using namespace std;
 
 int main() {
 
-    int P, S, x, y;
+    int P, S;
     vector<pair<int, int>> comprimento;
     int i = 0, f = 0;
 
