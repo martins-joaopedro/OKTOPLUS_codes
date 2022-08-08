@@ -5,50 +5,52 @@ int main() {
 
     int N, M;
     int n;
-    int acc = 0;
     cin >> N >> M;
 
-    int pos[] = {1, -1, 0,  0};
-    int x1, y1;
+    queue<pair<int, int>> F;
+    int matriz[N+1][M+1] = {0};
 
-    int grade[N+1][M+1] = {0};
-
-    for(int i=1; i<=N; i++) {
-        for(int j=1; j<=M; j++) {
-            cin >> n;
-
-            grade[i][j] = n;
-
-            if(n == 2) {
-                x1 = i;
-                y1 = j;
+    for(int i=0; i<N; i++)
+        for(int j=0; j<M; j++) {
+            cin >> matriz[i][j];
+            if(matriz[i][j] == 3) {
+                matriz[i][j] = 1;
+                F.push(make_pair(i, j));   
             }
         }
-    }
 
-    bool cond = false;
+    int X, Y;
+    int px, py;
 
-    while(!cond) {
+    int place ;
+    int pos[4] = {1, 0, -1, 0};
+    bool cond = true;
 
-        if(grade[x1][y1] == 3)
-            cond = true;
-
+    do {
+        X = F.front().first;
+        Y = F.front().second;
+        F.pop();
+    
         for(int k=0; k<4; k++) {
+          px = pos[k];
+          py = pos[3-k];
 
-            int p1 = pos[k];
-            int p2 = pos[3-k];
+          place = matriz[X+px][Y+py];
 
-            if(grade[x1+p1][y1+p2] == 1) {
-
-                x1 += p1;
-                y1 += p2;
-                grade[x1][y1] = 0;
-                acc++;
+          if(place != 0) {
+            F.push(make_pair(X+px, Y+py));
+            matriz[X+px][Y+py] = matriz[X][Y] + 1;
+            matriz[X][Y] = 0;
+            
+            if(place == 2) {
+              cout << matriz[X+px][Y+py] << endl;
+              cond = false;
+              break;
             }
+          }
         }
-    }
-
-    cout << acc << endl;
+    } while(cond);
 
     return 0;
 }
+
